@@ -1,28 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div>
+      <h1>Participants list</h1>
+      <ol> 
+        <li v-for="p in participants">{{ p.Firstname }} {{ p.Lastname }}</li>
+       
+      </ol>
+    </div>
+
+    <h3>New participant</h3>
+    <form @submit.prevent="addNewParticipant()">
+      <label>Firstname</label>
+      <input type="text" v-model="Firstname" >
+      <label>Lastname</label>
+      <input type="text" v-model="Lastname"> 
+      <button>Add new participant</button>
+    </form>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  export default {
+    data() {
+      return {
+      Firstname:'',
+       Lastname:'',
+        participants:[]
+      
+         } ;
+    },
+    methods: {
+      addNewParticipant() {
+        this.participants.push( { Firstname: this.Firstname, Lastname: this.Lastname  } );
+        this.Firstname= ''
+        this.Lastname = ''
+      }
+    }
+  };
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
